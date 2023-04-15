@@ -1024,10 +1024,6 @@ MonoBehaviour:
   player: {fileID: 1621266901}
   AI: {fileID: 93417708}
   state: 0
-  PlayerSelected: 0
-  AISelected: 0
-  AtkDone: 0
-  DamageDone: 0
   ReturnDone: 0
   PlayerEliminated: 0
 --- !u!4 &247747303
@@ -1220,10 +1216,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharName: Ai
-  Type: 2
-  CurrentHP: 100
+  type: 2
+  currentHP: 100
   MaxHP: 100
-  Atk: 25
+  atkPower: 20
   OverheadName: {fileID: 392725806}
   Avatar: {fileID: 635596515}
   NameText: {fileID: 172024930}
@@ -2291,10 +2287,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharName: Hana
-  Type: 2
-  CurrentHP: 100
+  type: 2
+  currentHP: 100
   MaxHP: 100
-  Atk: 25
+  atkPower: 20
   OverheadName: {fileID: 1680712484}
   Avatar: {fileID: 506836731}
   NameText: {fileID: 732555742}
@@ -4571,10 +4567,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharName: Noa
-  Type: 0
-  CurrentHP: 100
+  type: 0
+  currentHP: 100
   MaxHP: 100
-  Atk: 25
+  atkPower: 20
   OverheadName: {fileID: 174314940}
   Avatar: {fileID: 1092563687}
   NameText: {fileID: 1530541720}
@@ -4976,10 +4972,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharName: Hinata
-  Type: 1
-  CurrentHP: 100
+  type: 1
+  currentHP: 100
   MaxHP: 100
-  Atk: 25
+  atkPower: 20
   OverheadName: {fileID: 393916707}
   Avatar: {fileID: 411700269}
   NameText: {fileID: 1234075134}
@@ -7951,10 +7947,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharName: Aqua
-  Type: 1
-  CurrentHP: 100
+  type: 1
+  currentHP: 100
   MaxHP: 100
-  Atk: 25
+  atkPower: 20
   OverheadName: {fileID: 413506883}
   Avatar: {fileID: 520267681}
   NameText: {fileID: 647336034}
@@ -8541,10 +8537,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharName: Ruby
-  Type: 0
-  CurrentHP: 100
+  type: 0
+  currentHP: 100
   MaxHP: 100
-  Atk: 25
+  atkPower: 20
   OverheadName: {fileID: 360269684}
   Avatar: {fileID: 990566750}
   NameText: {fileID: 314302914}
