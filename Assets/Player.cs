@@ -35,32 +35,55 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
-        if(direction == Vector3.zero)
-        {
-            return;
-        }
-
-        if(Vector3.Distance(selectedChar.transform.position, atkRef.position) > 0.05f)
-        {
-            selectedChar.transform.position += 5 * direction * Time.deltaTime;
-        }
-        else 
-        {
-            direction = Vector3.zero;
-            selectedChar.transform.position = atkRef.position;
-        }
+        //if(direction == Vector3.zero)
+        //{
+        //    return;
+        //}
+        //if(Vector3.Distance(selectedChar.transform.position, atkRef.position) > 0.05f)
+        //{
+        //    selectedChar.transform.position += 5 * direction * Time.deltaTime;
+        //}
+        //else 
+        //{
+        //    direction = Vector3.zero;
+        //    selectedChar.transform.position = atkRef.position;
+        //}
     }
 
     public void Attack()
     {
-        direction = atkRef.position - selectedChar.transform.position;
-        direction.Normalize();
-
-        selectedChar.transform.DOMove(atkRef.position, 1f, true);
+        //direction = atkRef.position - selectedChar.transform.position;
+        //direction.Normalize();
+        selectedChar.transform.DOMove(atkRef.position, 1f).SetEase(Ease.InOutBounce);
     }
 
     public bool IsAttacking()
     {
-        return true;
+        return DOTween.IsTweening(selectedChar.transform, true);
+    }
+
+    public void TakeDmg(int damageValue)
+    {
+        selectedChar.ChangeHP(-damageValue);
+        var spriRend = selectedChar.GetComponent<SpriteRenderer>();
+        spriRend.DOColor(Color.red, 0.1f).SetLoops(4,LoopType.Yoyo);
+    }
+
+    public bool IsDamaging()
+    {
+        var spriRend = selectedChar.GetComponent<SpriteRenderer>();
+        return DOTween.IsTweening(spriRend);
+    }
+
+    public void Remove(Character character)
+    {
+        if(characterList.Contains(character) == false) 
+        {
+            return;
+        }
+
+        character.Button.interactable = false;
+        character.gameObject.SetActive(false);
+        characterList.Remove(character);
     }
 }

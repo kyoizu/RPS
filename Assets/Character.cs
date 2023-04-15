@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     [SerializeField] string CharName;
-    [SerializeField] CharacterType Type;
-    [SerializeField] int CurrentHP;
+    [SerializeField] CharacterType type;
+    [SerializeField] int currentHP;
     [SerializeField] int MaxHP;
-    [SerializeField] int Atk;
+    [SerializeField] int atkPower;
     [SerializeField] TMP_Text OverheadName;
     [SerializeField] Image Avatar;
     [SerializeField] TMP_Text NameText;
@@ -20,21 +20,30 @@ public class Character : MonoBehaviour
     [SerializeField] Button button;
 
     public Button Button { get => button; }
+    public CharacterType Type { get => type;}
+    public int AtkPower { get => atkPower;}
+    public int CurrentHP { get => currentHP; }
 
     // Start is called before the first frame update
     private void Start()
     {
         OverheadName.text = CharName;
         NameText.text = CharName;
-        typeText.text = Type.ToString();
-        HPBar.fillAmount = (float)CurrentHP/ (float)MaxHP;
-        HPText.text = CurrentHP + "/" + MaxHP;
+        typeText.text = type.ToString();
         button.interactable = false;
+        UpdateHPUI();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeHP(int amount)
     {
+        currentHP += amount;
+        currentHP = Mathf.Clamp(currentHP, 0, MaxHP);
+        UpdateHPUI();
         
+    }
+    private void UpdateHPUI()
+    {
+        HPBar.fillAmount = (float)currentHP/ (float)MaxHP;
+        HPText.text = currentHP + "/" + MaxHP;
     }
 }
