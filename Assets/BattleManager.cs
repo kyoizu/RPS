@@ -1,18 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
     [SerializeField] Player player;
+    [SerializeField] GameObject battleResult;
+    [SerializeField] TMP_Text battleResultTxt;
     [SerializeField] Player AI;
     [SerializeField] State state;
-    //[SerializeField] bool AISelected;
-    //[SerializeField] bool AtkDone;
-    //[SerializeField] bool DamageDone;
-    [SerializeField] bool ReturnDone;
-    [SerializeField] bool PlayerEliminated;
 
     enum State
     {
@@ -78,6 +77,13 @@ public class BattleManager : MonoBehaviour
                     }
                     state = State.Damaging;
 
+                    
+                }
+                break;
+
+            case State.Damaging:
+                if(player.IsDamaging() == false && AI.IsDamaging() == false) 
+                {
                     if(player.SelectedChar.CurrentHP == 0)
                     {
                         player.Remove(player.SelectedChar);
@@ -86,22 +92,38 @@ public class BattleManager : MonoBehaviour
                     {
                         AI.Remove(AI.SelectedChar);
                     }
-                }
-                break;
-
-            case State.Damaging:
-                if(player.IsDamaging() == false && AI.IsDamaging() == false) 
-                {
+                    if(player.SelectedChar != null)
+                    {
+                        player.Return();
+                    }
+                    if(AI.SelectedChar != null)
+                    {
+                        AI.Return();
+                    }
                     
-                    state = State.Prepare;
+                    state = State.Returning;
                 }
                 break;
 
             case State.Returning:
-                if(ReturnDone)
+                if(player.IsReturning() == false && AI.IsReturning() == false)
                 {
-                    if(PlayerEliminated) 
+                    if(player.CharacterList.Count == 0 && AI.CharacterList.Count == 0) 
                     {
+                        battleResult.SetActive(true);
+                        battleResultTxt.text = "Match Draw";
+                        state = State.BattleOver;
+                    }
+                    else if(player.CharacterList.Count == 0)
+                    {
+                        battleResult.SetActive(true);
+                        battleResultTxt.text = "AI Wins";
+                        state = State.BattleOver;
+                    }
+                    else if(AI.CharacterList.Count == 0)
+                    {
+                        battleResult.SetActive(true);
+                        battleResultTxt.text = "Player Wins";
                         state = State.BattleOver;
                     }
                     else 
@@ -111,6 +133,7 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
             case State.BattleOver:
+            
                 break;
         }
     }
@@ -155,5 +178,15 @@ public class BattleManager : MonoBehaviour
             winner = null;
             loser = null;
         }
+    }
+
+    public void Replay()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Quit()
+    {
+        SceneManager.LoadScene("Main");
     }
 }

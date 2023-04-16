@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     Vector3 direction = Vector3.zero;
 
     public Character SelectedChar { get => selectedChar;}
+    public List<Character> CharacterList { get => characterList;  }
 
     public void Prepare()
     {
@@ -59,6 +60,10 @@ public class Player : MonoBehaviour
 
     public bool IsAttacking()
     {
+        if(selectedChar == null) 
+        {
+            return false;
+        }
         return DOTween.IsTweening(selectedChar.transform, true);
     }
 
@@ -71,6 +76,10 @@ public class Player : MonoBehaviour
 
     public bool IsDamaging()
     {
+        if(selectedChar == null) 
+        {
+            return false;
+        }
         var spriRend = selectedChar.GetComponent<SpriteRenderer>();
         return DOTween.IsTweening(spriRend);
     }
@@ -82,8 +91,26 @@ public class Player : MonoBehaviour
             return;
         }
 
+        if(selectedChar == character)
+        {
+            selectedChar = null;
+        }
         character.Button.interactable = false;
         character.gameObject.SetActive(false);
         characterList.Remove(character);
+    }
+
+    public void Return()
+    {
+        selectedChar.transform.DOMove(selectedChar.InitialPos, 1f);
+    }
+
+    public bool IsReturning()
+    {
+        if(selectedChar == null) 
+        {
+            return false;
+        }
+        return DOTween.IsTweening(selectedChar.transform);
     }
 }

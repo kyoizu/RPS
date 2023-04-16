@@ -18,15 +18,18 @@ public class Character : MonoBehaviour
     [SerializeField] Image HPBar;
     [SerializeField] TMP_Text HPText;
     [SerializeField] Button button;
+    private Vector3 initialPos;
 
     public Button Button { get => button; }
-    public CharacterType Type { get => type;}
-    public int AtkPower { get => atkPower;}
+    public CharacterType Type { get => type; }
+    public int AtkPower { get => atkPower; }
     public int CurrentHP { get => currentHP; }
+    public Vector3 InitialPos { get => initialPos; }
 
     // Start is called before the first frame update
     private void Start()
     {
+        initialPos = this.transform.position;
         OverheadName.text = CharName;
         NameText.text = CharName;
         typeText.text = type.ToString();
